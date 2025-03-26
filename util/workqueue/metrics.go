@@ -20,6 +20,7 @@ import (
 	"sync"
 	"time"
 
+	"fmt"
 	"k8s.io/utils/clock"
 	"runtime/debug"
 )
@@ -263,7 +264,7 @@ func newRetryMetrics(name string, provider MetricsProvider) retryMetrics {
 // SetProvider sets the metrics provider for all subsequently created work
 // queues. Only the first call has an effect.
 func SetProvider(metricsProvider MetricsProvider) {
+	fmt.Println("SetProvider called")
 	debug.PrintStack()
-	panic("die")
 	globalMetricsFactory.setProvider(metricsProvider)
 }
