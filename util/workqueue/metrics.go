@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"k8s.io/utils/clock"
+	"runtime/debug"
 )
 
 // This file provides abstractions for setting the provider (e.g., prometheus)
@@ -262,5 +263,7 @@ func newRetryMetrics(name string, provider MetricsProvider) retryMetrics {
 // SetProvider sets the metrics provider for all subsequently created work
 // queues. Only the first call has an effect.
 func SetProvider(metricsProvider MetricsProvider) {
+	debug.PrintStack()
+	panic("die")
 	globalMetricsFactory.setProvider(metricsProvider)
 }
