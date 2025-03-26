@@ -17,12 +17,14 @@ limitations under the License.
 package workqueue
 
 import (
+	"reflect"
 	"sync"
 	"time"
 
 	"fmt"
-	"k8s.io/utils/clock"
 	"runtime/debug"
+
+	"k8s.io/utils/clock"
 )
 
 // This file provides abstractions for setting the provider (e.g., prometheus)
@@ -264,7 +266,8 @@ func newRetryMetrics(name string, provider MetricsProvider) retryMetrics {
 // SetProvider sets the metrics provider for all subsequently created work
 // queues. Only the first call has an effect.
 func SetProvider(metricsProvider MetricsProvider) {
-	fmt.Println("SetProvider called")
+	t := reflect.TypeOf(metricsProvider)
+	fmt.Printf("SetProvider called with metricsProvider of type %s\n", t)
 	debug.PrintStack()
 	globalMetricsFactory.setProvider(metricsProvider)
 }
